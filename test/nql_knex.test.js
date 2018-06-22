@@ -1,7 +1,7 @@
 require('./utils');
 const nql = require('@nexes/nql-lang');
-const knex = require('knex')({client: 'mysql'});
 const mongoToKnex = require('@nexes/mongo-knex');
+const knex = require('knex')({client: 'mysql'});
 /**
  * The purpose of this file is to prove that NQL
  * is not just transformed to mongo queries correctly
