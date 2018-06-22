@@ -15,11 +15,13 @@
   "devDependencies": {
     "eslint": "4.19.1",
     "eslint-plugin-ghost": "0.0.25",
+    "knex": "0.14.6",
     "mocha": "5.2.0",
     "should": "13.2.1",
     "sinon": "6.0.0"
   },
   "dependencies": {
+    "@nexes/mongo-knex": "0.0.0",
     "@nexes/nql-lang": "0.0.0",
     "mingo": "2.2.2"
   }
