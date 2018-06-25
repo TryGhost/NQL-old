@@ -1,21 +1,28 @@
 require('./utils');
 
+const sinon = require('sinon');
+const mingo = require('mingo');
+const nqlLang = require('@nexes/nql-lang');
 const nql = require('../lib/nql');
 const knex = require('knex')({client: 'mysql'});
+const sandbox = sinon.sandbox.create();
 
+/**
+ nql('id:3').lex()
+ nql('id:3').parse()
+ nql('id:3').queryJSON({});
+ nql('id:3').querySQL(knex('posts'));
+ nql('id:3').toJSON();
+
+ // In future?
+ nql('id:3').merge('title:6');
+ */
 describe('Public API', function () {
-    /**
-     nql('id:3').lex()
-     nql('id:3').parse()
-     nql('id:3').queryJSON({});
-     nql('id:3').querySQL(knex('posts'));
-     nql('id:3').toJSON();
+    afterEach(function () {
+        sandbox.restore();
+    });
 
-     // In future?
-     nql('id:3').merge('title:6');
-     */
-
-    it('quick api demo', function () {
+    it('api demo', function () {
         const query = nql('id:3');
 
         query.toJSON().should.eql({id: 3});
@@ -25,6 +32,37 @@ describe('Public API', function () {
         query.queryJSON({id: 3, name: 'kate'}).should.be.true();
 
         query.querySQL(knex('posts')).toQuery().should.eql('select * from `posts` where `posts`.`id` = 3');
+    });
+
+    it('ensure multiple nql instances', function () {
+        const query1 = nql('id:3');
+        const query2 = nql('featured:true');
+
+        query1.parse().should.eql({id: 3});
+        query2.parse().should.eql({featured: true});
+
+        query1.queryJSON({id: 3}).should.be.true();
+        query1.queryJSON({id: 2}).should.be.false();
+
+        query2.queryJSON({featured: true}).should.be.true();
+        query2.queryJSON({featured: false}).should.be.false();
+    });
+
+    it('ensure caching works as expected', function () {
+        sandbox.spy(mingo, 'Query');
+        sandbox.spy(nqlLang, 'parse');
+
+        const query = nql('id:3');
+
+        query.queryJSON({id: 3}).should.be.true();
+        mingo.Query.calledOnce.should.be.true();
+        query.queryJSON({id: 3}).should.be.true();
+        mingo.Query.calledOnce.should.be.true();
+
+        query.parse().should.eql({id: 3});
+        nqlLang.parse.calledOnce.should.be.true();
+        query.parse().should.eql({id: 3});
+        nqlLang.parse.calledOnce.should.be.true();
     });
 });
 
