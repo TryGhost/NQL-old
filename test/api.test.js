@@ -1,6 +1,5 @@
 require('./utils');
 
-const sinon = require('sinon');
 const mingo = require('mingo');
 const nqlLang = require('@nexes/nql-lang');
 const nql = require('../lib/nql');
