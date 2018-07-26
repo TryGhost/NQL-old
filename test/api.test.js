@@ -6,6 +6,8 @@ const nql = require('../lib/nql');
 const knex = require('knex')({client: 'mysql'});
 const sandbox = sinon.sandbox.create();
 
+const testAliases = {tags: 'tags.slug', authors: 'authors.slug'};
+
 /**
  nql('id:3').lex()
  nql('id:3').parse()
@@ -21,7 +23,7 @@ describe('Public API', function () {
         sandbox.restore();
     });
 
-    it('api demo', function () {
+    it('Basic API works as expected', function () {
         const query = nql('id:3');
 
         query.toJSON().should.eql({id: 3});
@@ -62,6 +64,19 @@ describe('Public API', function () {
         nqlLang.parse.calledOnce.should.be.true();
         query.parse().should.eql({id: 3});
         nqlLang.parse.calledOnce.should.be.true();
+    });
+
+    it('Supports options (aliases)', function () {
+        const query = nql('tags:[photo]', {aliases: testAliases});
+
+        query.toJSON().should.eql({'tags.slug': {$in: ['photo']}});
+        query.toString().should.eql('tags:[photo]');
+
+        query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
+        query.queryJSON({id: 3, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
+
+        // @TODO implement actual joins in mongo-knex!
+        query.querySQL(knex('posts')).toQuery().should.eql('select * from `posts` where `tags`.`slug` in (\'photo\')');
     });
 });
 

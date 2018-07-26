@@ -12,8 +12,8 @@ const advancedJSON = require('./fixtures/advanced');
  * but that this can be used in real world settings to match JSON
  */
 
-const makeQuery = (nqlString) => {
-    const filter = nql.parse(nqlString);
+const makeQuery = (nqlString, options) => {
+    const filter = nql.parse(nqlString, options);
     return new mingo.Query(filter);
 };
 
@@ -374,6 +374,38 @@ describe('Integration with Mingo', function () {
                 query.test(advancedJSON.posts[2]).should.eql(false);
                 query.test(advancedJSON.posts[3]).should.eql(false);
                 query.test(advancedJSON.posts[4]).should.eql(true);
+            });
+        });
+
+        describe('Aliases', function () {
+            it('can handle empty aliases', function () {
+                const query = makeQuery('tags:[photo]', {aliases: {}});
+
+                query.test(advancedJSON.posts[0]).should.eql(false);
+                query.test(advancedJSON.posts[1]).should.eql(false);
+                query.test(advancedJSON.posts[2]).should.eql(false);
+                query.test(advancedJSON.posts[3]).should.eql(false);
+                query.test(advancedJSON.posts[4]).should.eql(false);
+            });
+
+            it('can expand a field alias', function () {
+                const query = makeQuery('tags:[photo]', {aliases: {tags: 'tags.slug'}});
+
+                query.test(advancedJSON.posts[0]).should.eql(true);
+                query.test(advancedJSON.posts[1]).should.eql(false);
+                query.test(advancedJSON.posts[2]).should.eql(true);
+                query.test(advancedJSON.posts[3]).should.eql(false);
+                query.test(advancedJSON.posts[4]).should.eql(false);
+            });
+
+            it('can expand multiple field aliases', function () {
+                const query = makeQuery('tags:[photo]+authors:joanne', {aliases: {tags: 'tags.slug', authors: 'authors.slug'}});
+
+                query.test(advancedJSON.posts[0]).should.eql(false);
+                query.test(advancedJSON.posts[1]).should.eql(false);
+                query.test(advancedJSON.posts[2]).should.eql(true);
+                query.test(advancedJSON.posts[3]).should.eql(false);
+                query.test(advancedJSON.posts[4]).should.eql(false);
             });
         });
     });

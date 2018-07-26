@@ -8,9 +8,9 @@ const knex = require('knex')({client: 'mysql'});
  * but that this can be used in real world settings to query SQL databases
  */
 
-const makeQuery = (nqlString) => {
+const makeQuery = (nqlString, options) => {
     const postKnex = knex('posts');
-    const filter = nql.parse(nqlString);
+    const filter = nql.parse(nqlString, options);
 
     // console.log('Filter', require('util').inspect(filter, false, null)); // eslint-disable-line no-console
 
@@ -240,6 +240,26 @@ describe('Integration with Knex', function () {
 
                 query.toQuery().should.eql('select * from `posts` where ((`posts`.`tags` in (\'photo\') or `posts`.`image` is not null or `posts`.`featured` = true) and `posts`.`author` != \'joe\')');
             });
+        });
+    });
+
+    describe('Aliases', function () {
+        it('can handle empty aliases', function () {
+            const query = makeQuery('tags:[photo]', {aliases: {}});
+
+            query.toQuery().should.eql('select * from `posts` where `posts`.`tags` in (\'photo\')');
+        });
+
+        it('can expand a field alias', function () {
+            const query = makeQuery('tags:[photo]', {aliases: {tags: 'tags.slug'}});
+
+            query.toQuery().should.eql('select * from `posts` where `tags`.`slug` in (\'photo\')');
+        });
+
+        it('can expand multiple field aliases', function () {
+            const query = makeQuery('tags:[photo]+authors:joanne', {aliases: {tags: 'tags.slug', authors: 'authors.slug'}});
+
+            query.toQuery().should.eql('select * from `posts` where (`tags`.`slug` in (\'photo\') and `authors`.`slug` = \'joanne\')');
         });
     });
 });

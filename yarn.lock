@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@nexes/mongo-knex@0.0.0":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@nexes/mongo-knex/-/mongo-knex-0.0.0.tgz#7a44a7263d8830c8416b90ba3c963c2c722e7b72"
+"@nexes/mongo-knex@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@nexes/mongo-knex/-/mongo-knex-0.0.1.tgz#141c8ca380e95c1460fe2abcd777d7fd2bb14e8f"
   dependencies:
     lodash "^4.17.10"
 
-"@nexes/nql-lang@0.0.0":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@nexes/nql-lang/-/nql-lang-0.0.0.tgz#eb0fb807aea8aa64d3d0b454f3d1167af394f39a"
+"@nexes/nql-lang@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@nexes/nql-lang/-/nql-lang-0.0.1.tgz#a13c023873f9bc11b9e4e284449c6cfbeccc8011"
 
 "@sinonjs/formatio@^2.0.0":
   version "2.0.0"
