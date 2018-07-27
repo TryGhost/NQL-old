@@ -377,6 +377,48 @@ describe('Integration with Mingo', function () {
             });
         });
 
+        describe('logical combos', function () {
+            it('can match AND', function () {
+                const query = makeQuery('tags.slug:video+tags.slug:photo');
+
+                query.test(advancedJSON.posts[0]).should.eql(false);
+                query.test(advancedJSON.posts[1]).should.eql(false);
+                query.test(advancedJSON.posts[2]).should.eql(true);
+                query.test(advancedJSON.posts[3]).should.eql(false);
+                query.test(advancedJSON.posts[4]).should.eql(false);
+            });
+
+            it('can match AND NOT', function () {
+                const query = makeQuery('tags.slug:video+tags.slug:-photo');
+
+                query.test(advancedJSON.posts[0]).should.eql(false);
+                query.test(advancedJSON.posts[1]).should.eql(true);
+                query.test(advancedJSON.posts[2]).should.eql(false);
+                query.test(advancedJSON.posts[3]).should.eql(false);
+                query.test(advancedJSON.posts[4]).should.eql(false);
+            });
+
+            it('can match OR', function () {
+                const query = makeQuery('tags.slug:video,tags.slug:photo');
+
+                query.test(advancedJSON.posts[0]).should.eql(true);
+                query.test(advancedJSON.posts[1]).should.eql(true);
+                query.test(advancedJSON.posts[2]).should.eql(true);
+                query.test(advancedJSON.posts[3]).should.eql(false);
+                query.test(advancedJSON.posts[4]).should.eql(false);
+            });
+
+            it('can match OR NOT', function () {
+                const query = makeQuery('tags.slug:video,tags.slug:-photo');
+
+                query.test(advancedJSON.posts[0]).should.eql(false);
+                query.test(advancedJSON.posts[1]).should.eql(true);
+                query.test(advancedJSON.posts[2]).should.eql(true);
+                query.test(advancedJSON.posts[3]).should.eql(true);
+                query.test(advancedJSON.posts[4]).should.eql(true);
+            });
+        });
+
         describe('Aliases', function () {
             it('can handle empty aliases', function () {
                 const query = makeQuery('tags:[photo]', {aliases: {}});
