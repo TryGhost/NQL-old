@@ -9,7 +9,7 @@ module.exports.up = function (knex) {
             table.string('title', 191).defaultTo('(Untitled)');
             table.boolean('featured').defaultsTo(false);
             table.string('image', 191).nullable();
-            table.string('status', 191).nullabl/*  */e();
+            table.string('status', 191).nullable();
         }));
 };
 
