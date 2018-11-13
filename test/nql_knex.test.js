@@ -242,24 +242,4 @@ describe('Integration with Knex', function () {
             });
         });
     });
-
-    describe('Aliases', function () {
-        it('can handle empty aliases', function () {
-            const query = makeQuery('tags:[photo]', {aliases: {}});
-
-            query.toQuery().should.eql('select * from `posts` where `posts`.`tags` in (\'photo\')');
-        });
-
-        it('can expand a field alias', function () {
-            const query = makeQuery('tags:[photo]', {aliases: {tags: 'tags.slug'}});
-
-            query.toQuery().should.eql('select * from `posts` where `tags`.`slug` in (\'photo\')');
-        });
-
-        it('can expand multiple field aliases', function () {
-            const query = makeQuery('tags:[photo]+authors:joanne', {aliases: {tags: 'tags.slug', authors: 'authors.slug'}});
-
-            query.toQuery().should.eql('select * from `posts` where (`tags`.`slug` in (\'photo\') and `authors`.`slug` = \'joanne\')');
-        });
-    });
 });

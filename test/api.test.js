@@ -74,9 +74,6 @@ describe('Public API', function () {
 
         query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
         query.queryJSON({id: 3, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
-
-        // @TODO implement actual joins in mongo-knex!
-        query.querySQL(knex('posts')).toQuery().should.eql('select * from `posts` where `tags`.`slug` in (\'photo\')');
     });
 });
 

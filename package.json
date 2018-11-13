@@ -21,7 +21,7 @@
     "sinon": "6.0.0"
   },
   "dependencies": {
-    "@nexes/mongo-knex": "0.0.1",
+    "@nexes/mongo-knex": "0.1.1",
     "@nexes/nql-lang": "0.0.1",
     "mingo": "2.2.2"
   }
