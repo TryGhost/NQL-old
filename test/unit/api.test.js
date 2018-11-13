@@ -1,8 +1,8 @@
-require('./utils');
+require('../utils');
 
 const mingo = require('mingo');
 const nqlLang = require('@nexes/nql-lang');
-const nql = require('../lib/nql');
+const nql = require('../../lib/nql');
 const knex = require('knex')({client: 'mysql'});
 const sandbox = sinon.sandbox.create();
 
@@ -74,22 +74,5 @@ describe('Public API', function () {
 
         query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
         query.queryJSON({id: 3, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
-    });
-});
-
-describe.skip('Potential Future API', function () {
-    it('does not work this way yet', function () {
-        // const nql = new nql.Env({
-        //     aliases: {author: 'author.slug', tags: 'tags.slug', tag: 'tags.slug', authors: 'authors.slug'}
-        // });
-        //
-        // nql('tag:test')
-        //   .toSQL(knex('posts'))
-        //   .should.eql('
-        //       select * from `posts`
-        //         left join `posts_tags` on `posts`.`id` = `posts_tags`.`posts_id`
-        //         left join `tags` on `tags`.`id` = `posts_tags`.`tags_id`
-        //         where `tags`.`slug` = \'test\'
-        // ');
     });
 });
