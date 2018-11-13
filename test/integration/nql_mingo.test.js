@@ -1,7 +1,7 @@
-require('./utils');
+require('../utils');
 const nql = require('@nexes/nql-lang');
 const mingo = require('mingo');
-const simpleJSON = require('./fixtures/simple');
+const simpleJSON = require('./mingo/simple');
 
 /**
  * The purpose of this file is to prove that NQL
