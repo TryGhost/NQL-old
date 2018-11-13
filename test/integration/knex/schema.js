@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const TABLES = ['posts_tags', 'posts', 'tags', 'users'];
+const TABLES = ['posts'];
 
 module.exports.up = function (knex) {
     // Before all tests, we load any base data (data that won't change)
@@ -10,7 +10,6 @@ module.exports.up = function (knex) {
             table.boolean('featured').defaultsTo(false);
             table.string('image', 191).nullable();
             table.string('status', 191).nullable();
-            table.integer('author_id').unsigned().references('users.id');
         }));
 };
 
