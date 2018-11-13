@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint . --ext .js --cache",
     "posttest": "yarn lint",
-    "test": "NODE_ENV=testing mocha ./test/**/*.test.js",
+    "test": "NODE_ENV=testing mocha ./test/**/*.test.js --exit",
     "ship": "STATUS=$(git status --porcelain); echo $STATUS; if [ -z \"$STATUS\" ]; then yarn publish && git push --follow-tags; fi"
   },
   "devDependencies": {
