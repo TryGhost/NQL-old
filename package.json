@@ -24,7 +24,7 @@
     "sqlite3": "^4.0.4"
   },
   "dependencies": {
-    "@nexes/mongo-knex": "0.1.1",
+    "@nexes/mongo-knex": "0.1.2",
     "@nexes/nql-lang": "0.0.1",
     "mingo": "2.2.2"
   }
