@@ -6,7 +6,7 @@ const nql = require('../../lib/nql');
 const knex = require('knex')({client: 'mysql'});
 const sandbox = sinon.sandbox.create();
 
-const testAliases = {tags: 'tags.slug', authors: 'authors.slug'};
+const expansions = [{key: 'tags', replacement: 'tags.slug'}, {key: 'authors', replacement: 'authors.slug'}];
 
 /**
  nql('id:3').lex()
@@ -66,8 +66,8 @@ describe('Public API', function () {
         nqlLang.parse.calledOnce.should.be.true();
     });
 
-    it('Supports options (aliases)', function () {
-        const query = nql('tags:[photo]', {aliases: testAliases});
+    it('Supports options (expansions)', function () {
+        const query = nql('tags:[photo]', {expansions: expansions});
 
         query.toJSON().should.eql({'tags.slug': {$in: ['photo']}});
         query.toString().should.eql('tags:[photo]');
