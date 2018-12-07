@@ -6,7 +6,10 @@ const nql = require('../../lib/nql');
 const knex = require('knex')({client: 'mysql'});
 const sandbox = sinon.sandbox.create();
 
-const expansions = [{key: 'tags', replacement: 'tags.slug'}, {key: 'authors', replacement: 'authors.slug'}];
+const expansions = [
+    {key: 'tags', replacement: 'tags.slug'},
+    {key: 'authors', replacement: 'authors.slug'}
+];
 
 /**
  nql('id:3').lex()
