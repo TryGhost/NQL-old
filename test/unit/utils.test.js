@@ -16,7 +16,7 @@ describe('Utils', function () {
                     status: 'published'
                 };
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides).should.eql(output);
             });
 
             it('should return only default filter when it is passed', () => {
@@ -28,7 +28,7 @@ describe('Utils', function () {
                     status: 'published'
                 };
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.defaults).should.eql(output);
             });
 
             it('should return only custom filter when it is passed', () => {
@@ -40,7 +40,7 @@ describe('Utils', function () {
                     status: 'published'
                 };
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.custom).should.eql(output);
             });
         });
 
@@ -55,7 +55,7 @@ describe('Utils', function () {
                     {page: false}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.defaults).should.eql(output);
             });
 
             it('should combine custom and overrides filters', () => {
@@ -68,7 +68,7 @@ describe('Utils', function () {
                     {tag: 'photo'}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.custom).should.eql(output);
             });
 
             it('should remove custom filters if matches overrides', () => {
@@ -78,7 +78,7 @@ describe('Utils', function () {
                 };
                 const output = {status: 'published'};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.custom).should.eql(output);
             });
 
             it('should reduce custom filters if any matches overrides', () => {
@@ -96,7 +96,7 @@ describe('Utils', function () {
                     ]}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.custom).should.eql(output);
             });
 
             it('should combine default filters if default and custom are provided', () => {
@@ -109,7 +109,7 @@ describe('Utils', function () {
                     {page: false}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.custom, input.defaults).should.eql(output);
             });
 
             it('should reduce default filters if default and custom are same', () => {
@@ -119,7 +119,7 @@ describe('Utils', function () {
                 };
                 const output = {page: true};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.custom, input.defaults).should.eql(output);
             });
 
             it('should match nested $and with a key inside primary filter', function () {
@@ -145,7 +145,7 @@ describe('Utils', function () {
                     ]}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.custom, input.defaults).should.eql(output);
             });
 
             it('should reduce default filters if default and custom overlap', () => {
@@ -169,7 +169,7 @@ describe('Utils', function () {
                     ]}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.custom, input.defaults).should.eql(output);
             });
 
             it('should return a merger of overrides and defaults plus custom filters if provided', () => {
@@ -186,7 +186,7 @@ describe('Utils', function () {
                     {page: false}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.custom, input.defaults).should.eql(output);
             });
 
             it('should handle getting overrides, default and multiple custom filters', () => {
@@ -224,7 +224,7 @@ describe('Utils', function () {
                     }
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.custom, input.defaults).should.eql(output);
             });
 
             it('combination of all filters', () => {
@@ -245,7 +245,7 @@ describe('Utils', function () {
                     {page: false}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.custom, input.defaults).should.eql(output);
             });
 
             it('does not match incorrect custom filters', () => {
@@ -265,7 +265,7 @@ describe('Utils', function () {
                     ]}
                 ]};
 
-                utils.mergeFilters(input).should.eql(output);
+                utils.mergeFilters(input.overrides, input.custom, input.defaults).should.eql(output);
             });
         });
     });
