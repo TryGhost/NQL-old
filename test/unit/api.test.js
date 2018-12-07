@@ -8,7 +8,8 @@ const sandbox = sinon.sandbox.create();
 
 const expansions = [
     {key: 'tags', replacement: 'tags.slug'},
-    {key: 'authors', replacement: 'authors.slug'}
+    {key: 'authors', replacement: 'authors.slug'},
+    {key: 'primary_tag', replacement: 'tags.slug', expansion: 'order:0'}
 ];
 
 /**
@@ -77,5 +78,18 @@ describe('Public API', function () {
 
         query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
         query.queryJSON({id: 3, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
+    });
+
+    it('Supports options (expansions extended)', function () {
+        const query = nql('primary_tag:[photo]', {expansions: expansions});
+
+        query.toJSON().should.eql({$and: [
+            {'tags.slug': {$in: ['photo']}},
+            {order: 0}
+        ]});
+        query.toString().should.eql('primary_tag:[photo]');
+
+        query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
+        query.queryJSON({id: 3, order: 0, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
     });
 });
