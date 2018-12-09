@@ -1,4 +1,4 @@
-const debug = require('debug')('mongo-knex:test');
+const debug = require('debug')('nql:test');
 const config = require('../../../config');
 
 debug(config.get('database'));
