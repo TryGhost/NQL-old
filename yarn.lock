@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@nexes/mongo-knex@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@nexes/mongo-knex/-/mongo-knex-0.2.0.tgz#a8c21d130c93e3fe88696fa60efa5dbbff542348"
+"@nexes/mongo-knex@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@nexes/mongo-knex/-/mongo-knex-0.3.0.tgz#e0078f8ddf7fcd4d907fe5cf2390644218753cf0"
   dependencies:
     debug "^4.1.0"
     lodash "^4.17.10"
@@ -12,7 +12,6 @@
 "@nexes/mongo-utils@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@nexes/mongo-utils/-/mongo-utils-0.2.0.tgz#28b483e88f2433ee269aa6b91f7339b7ab1e7d45"
-  integrity sha512-AZ5jBPZeUf7fKuu4bqfT96bv4OYm69inf12EOhUB4PbFmvBcB9mYHixXlG1NElfPDNSY121p0/A2lXn5SLnbPg==
   dependencies:
     bluebird "^3.5.3"
     ghost-ignition "^2.9.6"
