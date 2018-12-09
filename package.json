@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@nexes/mongo-knex": "0.2.0",
+    "@nexes/mongo-utils": "0.2.0",
     "@nexes/nql-lang": "0.0.1",
     "mingo": "2.2.2"
   }

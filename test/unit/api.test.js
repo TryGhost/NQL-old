@@ -6,7 +6,11 @@ const nql = require('../../lib/nql');
 const knex = require('knex')({client: 'mysql'});
 const sandbox = sinon.sandbox.create();
 
-const testAliases = {tags: 'tags.slug', authors: 'authors.slug'};
+const expansions = [
+    {key: 'tags', replacement: 'tags.slug'},
+    {key: 'authors', replacement: 'authors.slug'},
+    {key: 'primary_tag', replacement: 'tags.slug', expansion: 'order:0'}
+];
 
 /**
  nql('id:3').lex()
@@ -66,13 +70,26 @@ describe('Public API', function () {
         nqlLang.parse.calledOnce.should.be.true();
     });
 
-    it('Supports options (aliases)', function () {
-        const query = nql('tags:[photo]', {aliases: testAliases});
+    it('Supports options (expansions)', function () {
+        const query = nql('tags:[photo]', {expansions: expansions});
 
         query.toJSON().should.eql({'tags.slug': {$in: ['photo']}});
         query.toString().should.eql('tags:[photo]');
 
         query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
         query.queryJSON({id: 3, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
+    });
+
+    it('Supports options (expansions extended)', function () {
+        const query = nql('primary_tag:[photo]', {expansions: expansions});
+
+        query.toJSON().should.eql({$and: [
+            {'tags.slug': {$in: ['photo']}},
+            {order: 0}
+        ]});
+        query.toString().should.eql('primary_tag:[photo]');
+
+        query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
+        query.queryJSON({id: 3, order: 0, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
     });
 });
