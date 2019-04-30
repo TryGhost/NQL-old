@@ -2,7 +2,10 @@
   "name": "@nexes/nql",
   "version": "0.2.1",
   "description": "tbc",
-  "repository": "git@github.com:NexesJS/NQL.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/NexesJS/NQL.git"
+  },
   "author": "Ghost Foundation",
   "license": "MIT",
   "main": "index.js",
