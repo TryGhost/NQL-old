@@ -92,4 +92,22 @@ describe('Public API', function () {
         query.queryJSON({tags: [{slug: 'video'}, {slug: 'audio'}]}).should.be.false();
         query.queryJSON({id: 3, order: 0, tags: [{slug: 'video'}, {slug: 'photo'}, {slug: 'audio'}]}).should.be.true();
     });
+
+    describe('parsing when options.transformer is set', function () {
+        it('sets this.filter to the result of options.transform(nql.parse(queryString)', function () {
+            const options = {
+                transformer(obj) {
+                    return JSON.parse(JSON.stringify(obj));
+                }
+            };
+            const nqlLangParseSpy = sandbox.spy(nqlLang, 'parse');
+            const transformerSpy = sandbox.spy(options, 'transformer');
+
+            const query = nql('hello:world', options);
+            query.parse();
+
+            transformerSpy.calledOnceWithExactly(nqlLangParseSpy.firstCall.returnValue).should.be.true();
+            query.filter.should.equal(transformerSpy.firstCall.returnValue);
+        });
+    });
 });
