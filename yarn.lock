@@ -9,10 +9,10 @@
     debug "^4.1.0"
     lodash "^4.17.10"
 
-"@nexes/mongo-utils@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@nexes/mongo-utils/-/mongo-utils-0.2.1.tgz#746d004fc17741b50e945d76e9ab53496ffab15b"
-  integrity sha512-g/8IpnxldGbog3yTwZg1tD+6zRLbGmYDkotZiDg3O5eLxQxNXZzoP0lmv4DDfPU1Bc8sh9JlSjt+xPrOoXlIXw==
+"@nexes/mongo-utils@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@nexes/mongo-utils/-/mongo-utils-0.3.0.tgz#144c56851b3bb773839281b416964a7d2f4982c0"
+  integrity sha512-diYGCysU0f2+YCwGEjJTDJIM79rGjAdaP7+iFK+cXvnmnVdUOAF/lUCaHLtHkXOBCdan3v9jTGTBfgHPeBhJjA==
   dependencies:
     bluebird "^3.5.3"
     ghost-ignition "^2.9.6"
