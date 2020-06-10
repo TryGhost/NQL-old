@@ -24,7 +24,7 @@
     "nconf": "^0.10.0",
     "should": "13.2.1",
     "sinon": "6.0.0",
-    "sqlite3": "^4.0.4"
+    "sqlite3": "4.2.0"
   },
   "dependencies": {
     "@nexes/mongo-knex": "0.3.0",
