@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@nexes/mongo-knex@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@nexes/mongo-knex/-/mongo-knex-0.4.1.tgz#3eb07e9ac176f525704e56e4cc7522dd26ea7552"
-  integrity sha512-WjkizmhtJRLXQ4LFDMpyYhBjd1UgRX5iSznD1XvPeB5/HsRDptBD3nBMld+oWw7lgVz4UUjpT23wFClSKfLF9A==
+"@nexes/mongo-knex@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@nexes/mongo-knex/-/mongo-knex-0.5.0.tgz#58566614ca240bdf84a270117d72b46511b17743"
+  integrity sha512-6wiTbJpy7I2xsxuvwavuwDEtJfoiaxAy4PGPFEiVziQyH3SjOFbwyqnlrKPvhNHCj2YFQHcE8rnJ3JawJVtXOA==
   dependencies:
     debug "^4.3.1"
     lodash "^4.17.21"
