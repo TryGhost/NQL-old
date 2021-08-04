@@ -18,7 +18,7 @@
   "devDependencies": {
     "eslint": "4.19.1",
     "eslint-plugin-ghost": "0.0.27",
-    "knex": "0.14.6",
+    "knex": "0.19.5",
     "mocha": "5.2.0",
     "mysql": "^2.16.0",
     "nconf": "^0.10.0",
