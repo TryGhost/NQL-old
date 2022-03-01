@@ -30,7 +30,7 @@
   "dependencies": {
     "@nexes/mongo-knex": "0.5.0",
     "@nexes/mongo-utils": "^0.3.1",
-    "@nexes/nql-lang": "^0.0.1",
+    "@nexes/nql-lang": "0.1.0",
     "mingo": "^2.2.2"
   }
 }
